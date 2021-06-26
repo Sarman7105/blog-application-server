@@ -21,6 +21,16 @@ client.connect((err) => {
 
     const adminCollection = client.db('smart-blog').collection('admins');
     // console.log('error',err );
+    const blogCollection = client.db('smart-blog').collection('blogs');
+
+    app.post('/addBlog', (req, res) => {
+        const newBlog = req.body;
+        // console.log('adding new event: ', newBlog)
+        blogCollection.insertOne(newBlog).then((result) => {
+            // console.log('inserted count', result.insertedCount);
+            res.send(result.insertedCount > 0);
+        })
+    });
 
     app.get('/admin', (req, res) => {
         adminCollection.find().toArray((err, items) => {
@@ -31,4 +41,4 @@ client.connect((err) => {
 })
 
 
-app.listen(port);
+    app.listen(port);
