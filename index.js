@@ -38,6 +38,12 @@ client.connect((err) => {
             res.send(items);
         })
     })
+
+    app.get('/blogs', (req, res) => {
+        blogCollection.find().toArray((err, items) => {
+            res.send(items);
+        })
+    })
 })
 
 
