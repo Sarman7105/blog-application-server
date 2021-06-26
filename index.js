@@ -3,6 +3,7 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
 const port = process.env.PORT || 5055;
 
@@ -41,6 +42,14 @@ client.connect((err) => {
 
     app.get('/blogs', (req, res) => {
         blogCollection.find().toArray((err, items) => {
+            res.send(items);
+        })
+    })
+    app.get('/blog', (req, res) => {
+        console.log(req.query.id);
+        id = req.query.id;
+        blogCollection.find({ _id: ObjectId(id) }).toArray((err, items) => {
+            // console.log({ err }, { items });
             res.send(items);
         })
     })
