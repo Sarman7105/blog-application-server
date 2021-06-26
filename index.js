@@ -53,6 +53,11 @@ client.connect((err) => {
             res.send(items);
         })
     })
+
+    app.delete('/deleteBlog/:id', (req, res) => {
+        console.log(req.params.id);
+        blogCollection.deleteOne({ _id: ObjectId(req.params.id) });
+    })
 })
 
 
